@@ -385,6 +385,7 @@
             background: var(--cream);
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
         .blog-card:hover {
@@ -440,6 +441,137 @@
             color: #999;
             display: flex;
             gap: 1rem;
+        }
+
+        /* Article Modal */
+        .article-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .article-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .article-modal-content {
+            max-width: 800px;
+            margin: 5vh auto;
+            background: white;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .article-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            z-index: 10;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .article-modal-close:hover {
+            color: var(--text);
+        }
+
+        .article-modal-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .article-modal-body {
+            padding: 2rem 3rem 3rem;
+        }
+
+        .article-modal-body .blog-tag {
+            margin-bottom: 1rem;
+        }
+
+        .article-modal-body h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .article-modal-meta {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .article-modal-body p {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .article-modal-body h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+        }
+
+        .article-modal-body ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .article-modal-body li {
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary);
+            color: white;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .read-more-btn:hover {
+            background: #1a2a1b;
         }
 
         /* Gallery Section */
@@ -1038,7 +1170,8 @@
             <p class="section-desc">实用的露营技巧、深入的装备评测、最美的营地推荐</p>
         </div>
         <div class="blog-grid">
-            <div class="blog-card fade-in">
+            <!-- 新手入门 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-1')">
                 <div class="blog-img">
                     <img src="https://images.unsplash.com/photo-1542652735873-fb2825bac6e2?w=600&q=80" alt="新手入门">
                 </div>
@@ -1052,7 +1185,8 @@
                     </div>
                 </div>
             </div>
-            <div class="blog-card fade-in">
+            <!-- 帐篷评测 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-2')">
                 <div class="blog-img">
                     <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="帐篷推荐">
                 </div>
@@ -1066,7 +1200,8 @@
                     </div>
                 </div>
             </div>
-            <div class="blog-card fade-in">
+            <!-- 营地推荐 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-3')">
                 <div class="blog-img">
                     <img src="https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=600&q=80" alt="营地推荐">
                 </div>
@@ -1077,6 +1212,141 @@
                     <div class="blog-meta">
                         <span>2024.03.05</span>
                         <span>阅读 5.1k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 春季攻略 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-4')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=600&q=80" alt="春季露营">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">季节攻略</span>
+                    <h4 class="blog-title">春季露营完全指南：赏花踏青两不误</h4>
+                    <p class="blog-excerpt">春天是露营的黄金季节，这篇告诉你春季露营的最佳时机、注意事项和必去目的地...</p>
+                    <div class="blog-meta">
+                        <span>2024.02.28</span>
+                        <span>阅读 1.8k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 睡袋选购 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-5')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&q=80" alt="睡袋选购">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">装备评测</span>
+                    <h4 class="blog-title">睡袋选购指南：温标、填充物、品牌全解析</h4>
+                    <p class="blog-excerpt">睡袋是露营最重要的装备之一，如何选择合适的温标？羽绒和棉睡袋哪个好？...</p>
+                    <div class="blog-meta">
+                        <span>2024.02.20</span>
+                        <span>阅读 2.6k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 营地美食 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-6')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=600&q=80" alt="营地美食">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">露营食谱</span>
+                    <h4 class="blog-title">野外也能吃得好：10道简单美味的营地食谱</h4>
+                    <p class="blog-excerpt">露营不是只能吃泡面！分享10道在营地就能做的简单又美味的料理...</p>
+                    <div class="blog-meta">
+                        <span>2024.02.15</span>
+                        <span>阅读 4.2k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 夏季攻略 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-7')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80" alt="夏季露营">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">季节攻略</span>
+                    <h4 class="blog-title">夏季露营全攻略：防暑防虫防雨一篇搞定</h4>
+                    <p class="blog-excerpt">夏天露营最怕热和蚊虫，这篇分享实用的防暑、防虫、防突然降雨技巧...</p>
+                    <div class="blog-meta">
+                        <span>2024.06.01</span>
+                        <span>阅读 3.1k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 安全须知 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-8')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1486915309615-73ca5dfc3fc4?w=600&q=80" alt="露营安全">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">安全须知</span>
+                    <h4 class="blog-title">露营安全手册：这些知识关键时刻能救命</h4>
+                    <p class="blog-excerpt">户外安全无小事！这篇整理了露营常见的危险及应对方法，建议收藏...</p>
+                    <div class="blog-meta">
+                        <span>2024.01.25</span>
+                        <span>阅读 6.5k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 秋季攻略 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-9')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1517824806704-9040b037703b?w=600&q=80" alt="秋季露营">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">季节攻略</span>
+                    <h4 class="blog-title">秋天是露营的最佳季节：赏枫叶观星河</h4>
+                    <p class="blog-excerpt">秋高气爽的秋季是公认最适合露营的季节，推荐几个赏枫观星的绝佳目的地...</p>
+                    <div class="blog-meta">
+                        <span>2024.09.15</span>
+                        <span>阅读 4.8k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 炉具评测 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-10')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=600&q=80" alt="炉具推荐">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">装备评测</span>
+                    <h4 class="blog-title">便携炉具横评：气炉、油炉、酒精炉哪个好？</h4>
+                    <p class="blog-excerpt">露营做饭离不开炉子，气炉方便但怕低温，油炉火力强但维护复杂...</p>
+                    <div class="blog-meta">
+                        <span>2024.01.10</span>
+                        <span>阅读 2.9k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 江浙沪推荐 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-11')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1537905569824-f89f14cceb68?w=600&q=80" alt="江浙沪营地">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">目的地</span>
+                    <h4 class="blog-title">江浙沪周边8个宝藏露营地，周末说走就走</h4>
+                    <p class="blog-excerpt">不想长假出行？这8个江浙沪周边的宝藏露营地，开车2-4小时即达...</p>
+                    <div class="blog-meta">
+                        <span>2024.01.05</span>
+                        <span>阅读 7.2k</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 冬季攻略 -->
+            <div class="blog-card fade-in" onclick="openArticle('article-12')">
+                <div class="blog-img">
+                    <img src="https://images.unsplash.com/photo-1486915309615-73ca5dfc3fc4?w=600&q=80" alt="冬季露营">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-tag">季节攻略</span>
+                    <h4 class="blog-title">冬季露营入门：保暖技巧与装备清单</h4>
+                    <p class="blog-excerpt">冬天的星空更璀璨，雪地露营别有风情，但这也是最具挑战的季节...</p>
+                    <div class="blog-meta">
+                        <span>2023.12.20</span>
+                        <span>阅读 3.4k</span>
                     </div>
                 </div>
             </div>
@@ -1272,6 +1542,20 @@
         </div>
     </footer>
 
+    <!-- Article Modal -->
+    <div class="article-modal" id="articleModal">
+        <span class="article-modal-close" onclick="closeArticle()">×</span>
+        <div class="article-modal-content">
+            <img src="" alt="" id="articleModalImg" class="article-modal-img">
+            <div class="article-modal-body">
+                <span class="blog-tag" id="articleModalTag"></span>
+                <h2 id="articleModalTitle"></h2>
+                <p class="article-modal-meta" id="articleModalMeta"></p>
+                <div id="articleModalContent"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">×</span>
@@ -1305,6 +1589,517 @@
         }, { threshold: 0.1 });
 
         fadeElements.forEach(el => observer.observe(el));
+
+        // Article Data - 12 Articles
+        const articles = {
+            'article-1': {
+                title: '第一次露营需要准备什么？完整清单来了',
+                tag: '新手入门',
+                date: '2024.03.15',
+                views: '2.3k',
+                image: 'https://images.unsplash.com/photo-1542652735873-fb2825bac6e2?w=1200&q=80',
+                content: `
+                    <p>第一次露营总是既兴奋又紧张？不用担心，这篇为你整理了从帐篷到灯具的完整装备清单，确保你不会遗漏任何重要物品。</p>
+                    
+                    <h3>一、基础装备</h3>
+                    <ul>
+                        <li><strong>帐篷</strong>：根据人数选择合适尺寸，建议新手选择自动开合的款式</li>
+                        <li><strong>睡袋</strong>：根据季节选择合适的温标，夏季可选薄款，冬季需要温标更低的</li>
+                        <li><strong>防潮垫/充气垫</strong>：必备！隔热防潮还能增加舒适度</li>
+                        <li><strong>营地灯/头灯</strong>：夜间活动必备，头灯可以解放双手</li>
+                    </ul>
+                    
+                    <h3>二、烹饪装备</h3>
+                    <ul>
+                        <li><strong>便携炉具</strong>：气炉最方便，适合新手</li>
+                        <li><strong>锅具</strong>：带一个煎锅和一个汤锅就够用</li>
+                        <li><strong>餐具</strong>：户外专用的不易碎材质</li>
+                        <li><strong>保温水壶</strong>：随时喝到热水</li>
+                    </ul>
+                    
+                    <h3>三、服装建议</h3>
+                    <ul>
+                        <li><strong>保暖层</strong>：抓绒或轻薄羽绒服，昼夜温差大时必备</li>
+                        <li><strong>防水外套</strong>：山区天气多变，防雨防风很重要</li>
+                        <li><strong>舒适的鞋子</strong>：登山鞋或防滑运动鞋</li>
+                        <li><strong>备用衣物</strong>：多带一套换洗衣物</li>
+                    </ul>
+                    
+                    <h3>四、安全与急救</h3>
+                    <ul>
+                        <li><strong>急救包</strong>：创可贴、消毒酒精、止血带等基础用品</li>
+                        <li><strong>防晒霜</strong>：高SPF值，山区紫外线更强</li>
+                        <li><strong>驱蚊液</strong>：夏季露营必备</li>
+                        <li><strong>地图/指南针</strong>：即使有手机也要备一份</li>
+                    </ul>
+                    
+                    <h3>新手小贴士</h3>
+                    <p>第一次露营建议选择有基础设施的正规营地，水电供应充足，安全性更高。等经验丰富后再尝试野外露营。</p>
+                `
+            },
+            'article-2': {
+                title: '2024年最值得入手的5款帐篷推荐',
+                tag: '装备评测',
+                date: '2024.03.10',
+                views: '3.8k',
+                image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80',
+                content: `
+                    <p>帐篷是露营的核心装备，一顶好的帐篷能让你的露营体验提升好几个档次。我们测评了市面上的主流帐篷，为你精选了以下5款。</p>
+                    
+                    <h3>1. MSR Hubba Hubba NX 2</h3>
+                    <p><strong>类型：</strong>轻量化隧道帐</p>
+                    <p><strong>适用场景：</strong>徒步露营、2人使用</p>
+                    <p>这款帐篷是轻量化露营的首选，前后双门设计，重量仅1.5kg左右。搭建简单，防雨性能出色。</p>
+                    
+                    <h3>2. NEMO Hornet 2P</h3>
+                    <p><strong>类型：</strong>自立式帐篷</p>
+                    <p><strong>适用场景：</strong>通用</p>
+                    <p>超轻设计，1.2kg的自重让它成为背包客的最爱。内部空间利用率高，配备了LED挂灯环。</p>
+                    
+                    <h3>3. Big Agnes Copper Spur HV UL3</h3>
+                    <p><strong>类型：</strong>家庭帐篷</p>
+                    <p><strong>适用场景：</strong>3-4人家庭露营</p>
+                    <p>空间宽敞，重量控制得当。网布占比大，通风性能优秀，夏季使用很舒适。</p>
+                    
+                    <h3>4. Snow Peak Land Double</h3>
+                    <p><strong>类型：</strong>Glamping帐篷</p>
+                    <p><strong>适用场景：</strong>精致露营</p>
+                    <p>日本品牌，设计感极强。极简风格搭配高级面料，非常适合追求品质的Glamping爱好者。</p>
+                    
+                    <h3>5. 牧高笛 冷山2</h3>
+                    <p><strong>类型：</strong>入门级帐篷</p>
+                    <p><strong>适用场景：</strong>新手入门</p>
+                    <p>国产品牌性价比之选，价格实惠，防护性能可靠。适合预算有限的新手露营者。</p>
+                `
+            },
+            'article-3': {
+                title: '京郊5个绝美露营地，距离近风景美',
+                tag: '营地推荐',
+                date: '2024.03.05',
+                views: '5.1k',
+                image: 'https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=1200&q=80',
+                content: `
+                    <p>不想跑太远？这5个京郊露营地开车2小时内可达，风景却不输远方。是周末出逃的绝佳选择。</p>
+                    
+                    <h3>1. 密云 · 云蒙山营地</h3>
+                    <p>位于云蒙山国家森林公园内，海拔较高，夜晚星空璀璨。营地有水电接入，适合家庭露营。</p>
+                    <p><strong>距离：</strong>北京城区约90公里</p>
+                    <p><strong>特色：</strong>森林、溪流、星空</p>
+                    
+                    <h3>2. 怀柔 · 慕田峪脚下营地</h3>
+                    <p>在长城脚下安营扎寨，早起还能看长城日出。营地设施完善，周边可游览多个长城景点。</p>
+                    <p><strong>距离：</strong>北京城区约70公里</p>
+                    <p><strong>特色：</strong>长城、日出、古迹</p>
+                    
+                    <h3>3. 延庆 · 海坨山谷</h3>
+                    <p>位于北京第二高峰海坨山脚下，生态环境极佳。有专业的帐篷营地和木屋住宿可选。</p>
+                    <p><strong>距离：</strong>北京城区约120公里</p>
+                    <p><strong>特色：</strong>高山草甸、云海、野生花卉</p>
+                    
+                    <h3>4. 门头沟 · 清水尖营地</h3>
+                    <p>相对小众的野营地，需要徒步才能到达。适合追求清静的原生态露营体验。</p>
+                    <p><strong>距离：</strong>北京城区约80公里</p>
+                    <p><strong>特色：</strong>清静、原生态、挑战性</p>
+                    
+                    <h3>5. 平谷 · 金海湖营地</h3>
+                    <p>依傍金海湖，景色开阔。可以划船、钓鱼，夏季还能玩水上项目。</p>
+                    <p><strong>距离：</strong>北京城区约100公里</p>
+                    <p><strong>特色：</strong>湖泊、水上活动、家庭友好</p>
+                `
+            },
+            'article-4': {
+                title: '春季露营完全指南：赏花踏青两不误',
+                tag: '季节攻略',
+                date: '2024.02.28',
+                views: '1.8k',
+                image: 'https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=1200&q=80',
+                content: `
+                    <p>春天是露营的黄金季节，天气渐暖、万物复苏，是出门露营的最佳时机。这篇指南帮你规划一次完美的春季露营。</p>
+                    
+                    <h3>最佳露营时间</h3>
+                    <p>北方地区建议3月下旬至5月中旬为最佳时期，此时气温适宜、百花盛开。南方地区可以提前到2月底开始。</p>
+                    
+                    <h3>春季露营装备重点</h3>
+                    <ul>
+                        <li><strong>保暖依然重要</strong>：春季昼夜温差大，夜间温度可能降至零下，睡袋温标建议在-5°C至5°C之间</li>
+                        <li><strong>防雨装备</strong>：春季多雨，务必带上防水地垫和备用防雨罩</li>
+                        <li><strong>透气服装</strong>：白天活动量大，建议穿排汗透气的速干衣</li>
+                    </ul>
+                    
+                    <h3>春季露营地推荐</h3>
+                    <p>春季推荐选择有花景的营地：</p>
+                    <ul>
+                        <li>婺源 — 油菜花海中的帐篷营地</li>
+                        <li>西藏林芝 — 桃花盛开的雪山营地</li>
+                        <li>伊犁 — 野花遍地的草原露营</li>
+                    </ul>
+                    
+                    <h3>注意事项</h3>
+                    <p>春季户外活动要特别注意花粉过敏，随身携带抗过敏药物。另外，春季是森林防火期，用火要格外小心。</p>
+                `
+            },
+            'article-5': {
+                title: '睡袋选购指南：温标、填充物、品牌全解析',
+                tag: '装备评测',
+                date: '2024.02.20',
+                views: '2.6k',
+                image: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=1200&q=80',
+                content: `
+                    <p>睡袋是露营最重要的装备之一，直接影响睡眠质量。选择合适的睡袋需要考虑温标、填充物、款式等多个因素。</p>
+                    
+                    <h3>温标解读</h3>
+                    <p>睡袋温标通常标注三个数值：</p>
+                    <ul>
+                        <li><strong>极限温度</strong>：勉强可以保暖的温度</li>
+                        <li><strong>舒适温度</strong>：大多数人感到舒适的温度</li>
+                        <li><strong>上限温度</strong>：感到热的温度</li>
+                    </ul>
+                    <p>建议选择舒适温度等于或略低于预期最低温度的睡袋。</p>
+                    
+                    <h3>填充物对比</h3>
+                    <p><strong>羽绒睡袋：</strong></p>
+                    <ul>
+                        <li>优点：轻便、可压缩、保暖性强、寿命长</li>
+                        <li>缺点：价格较高、潮湿后保暖性大幅下降</li>
+                        <li>适合：追求轻量化、专业露营、干燥环境</li>
+                    </ul>
+                    <p><strong>棉/化纤睡袋：</strong></p>
+                    <ul>
+                        <li>优点：价格实惠、耐潮湿、清洗方便</li>
+                        <li>缺点：重、压缩性差、保暖性随时间下降</li>
+                        <li>适合：新手入门、潮湿环境、频繁清洗</li>
+                    </ul>
+                    
+                    <h3>款式选择</h3>
+                    <p><strong>木乃伊式：</strong>包裹性好、保暖效率高、重量轻，是户外露营首选。</p>
+                    <p><strong>信封式：</strong>空间宽敞、可展开当被子用、方便拼接，适合家庭或营地露营。</p>
+                `
+            },
+            'article-6': {
+                title: '野外也能吃得好：10道简单美味的营地食谱',
+                tag: '露营食谱',
+                date: '2024.02.15',
+                views: '4.2k',
+                image: 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=1200&q=80',
+                content: `
+                    <p>露营不是只能吃泡面！分享10道在营地就能做的简单又美味的料理，让你的野外生活也有美食相伴。</p>
+                    
+                    <h3>早餐篇</h3>
+                    <p><strong>1. 培根煎蛋配烤面包</strong></p>
+                    <p>经典中的经典，用煎锅就能搞定。培根的油脂煎蛋，格外香。</p>
+                    
+                    <p><strong>2. 燕麦粥配坚果果干</strong></p>
+                    <p>前一晚用保温杯泡好，早上直接吃。加点坚果和蔓越莓干，营养又饱腹。</p>
+                    
+                    <h3>午餐篇</h3>
+                    <p><strong>3. 营地三明治</strong></p>
+                    <p>提前一晚准备食材，午餐简单组合即可。火腿、芝士、生菜、番茄，层次丰富。</p>
+                    
+                    <p><strong>4. 蔬菜肉片炒饭</strong></p>
+                    <p>用剩米饭加上火腿肠、蔬菜丁，大火快炒，是最实用的营地快手菜。</p>
+                    
+                    <h3>晚餐篇</h3>
+                    <p><strong>5. 营地火锅</strong></p>
+                    <p>带上底料和食材，大家围在一起涮，气氛满分。推荐鸳鸯锅底，照顾不同口味。</p>
+                    
+                    <p><strong>6. 煎牛排配芦笋</strong></p>
+                    <p>露营也要吃好！提前腌制好的牛排，煎至五分熟，配上烤芦笋，仪式感拉满。</p>
+                    
+                    <p><strong>7. 番茄肉丸意面</strong></p>
+                    <p>速食意面酱加上现做的肉丸，简单快手，却能慰藉一天的疲惫。</p>
+                    
+                    <h3>甜点篇</h3>
+                    <p><strong>8. 棉花糖烤夹心饼干</strong></p>
+                    <p>两片饼干夹着棉花糖，用营火慢慢烤至融化，童年回忆杀！</p>
+                    
+                    <p><strong>9. 香蕉巧克力船</strong></p>
+                    <p>香蕉剖开塞入巧克力块，烤至巧克力融化，简单却惊艳。</p>
+                    
+                    <p><strong>10. 热红酒</strong></p>
+                    <p>肉桂、橙子、丁香加红酒，小火加热。星空下的一杯暖酒，是露营夜晚最好的结尾。</p>
+                `
+            },
+            'article-7': {
+                title: '夏季露营全攻略：防暑防虫防雨一篇搞定',
+                tag: '季节攻略',
+                date: '2024.06.01',
+                views: '3.1k',
+                image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80',
+                content: `
+                    <p>夏天露营最怕热和蚊虫，这篇分享实用的防暑、防虫、防突然降雨技巧，让你的夏季露营无忧。</p>
+                    
+                    <h3>防暑技巧</h3>
+                    <ul>
+                        <li><strong>选址</strong>：选择有树荫的位置，避免正午阳光直射</li>
+                        <li><strong>时间</strong>：上午10点至下午3点尽量在阴凉处休息</li>
+                        <li><strong>补水</strong>：随身携带足够的水，每人每天至少2升</li>
+                        <li><strong>装备</strong>：天幕或遮阳帘可以有效降低营地温度</li>
+                    </ul>
+                    
+                    <h3>防虫攻略</h3>
+                    <ul>
+                        <li><strong>驱蚊</strong>：晚上在营地周围点燃蚊香或放置驱蚊灯</li>
+                        <li><strong>服装</strong>：穿浅色长袖长裤，减少皮肤暴露</li>
+                        <li><strong>食物</strong>：食物密封保存，不要在帐篷内吃东西</li>
+                        <li><strong>环境</strong>：避免在死水边或草丛茂密处扎营</li>
+                    </ul>
+                    
+                    <h3>防雨准备</h3>
+                    <ul>
+                        <li><strong>帐篷</strong>：确保外账完全覆盖内账，接缝处做好防水处理</li>
+                        <li><strong>地垫</strong>：使用防水地垫，搭建帐篷前清理地面尖锐物</li>
+                        <li><strong>排水</strong>：在帐篷周围挖浅沟引导雨水</li>
+                        <li><strong>备用</strong>：准备大型防水袋保护衣物和电子设备</li>
+                    </ul>
+                `
+            },
+            'article-8': {
+                title: '露营安全手册：这些知识关键时刻能救命',
+                tag: '安全须知',
+                date: '2024.01.25',
+                views: '6.5k',
+                image: 'https://images.unsplash.com/photo-1486915309615-73ca5dfc3fc4?w=1200&q=80',
+                content: `
+                    <p>户外安全无小事！这篇整理了露营常见的危险及应对方法，建议收藏。</p>
+                    
+                    <h3>迷路怎么办</h3>
+                    <ul>
+                        <li><strong>保持冷静</strong>：慌乱只会消耗体力</li>
+                        <li><strong>原地待命</strong>：如果与同伴失联，原地等待比四处走动更明智</li>
+                        <li><strong>发出信号</strong>：使用哨声或反光物引起注意</li>
+                        <li><strong>沿水走</strong>：顺着水流方向通常能找到人类聚居地</li>
+                    </ul>
+                    
+                    <h3>野生动物</h3>
+                    <ul>
+                        <li><strong>熊</strong>：保持食物远离帐篷100米以上，遇熊保持距离慢慢后退</li>
+                        <li><strong>蛇</strong>：穿高帮鞋，行走时先探路，被咬立即就医</li>
+                        <li><strong>昆虫</strong>：了解当地危险昆虫，携带急救药品</li>
+                    </ul>
+                    
+                    <h3>天气突变</h3>
+                    <ul>
+                        <li><strong>雷暴</strong>：远离高大物体和水体，蹲下避雷</li>
+                        <li><strong>洪水</strong>：关注天气预报，避免在河床扎营</li>
+                        <li><strong>山体滑坡</strong>：避开陡峭山坡和峡谷</li>
+                    </ul>
+                    
+                    <h3>必备急救清单</h3>
+                    <ul>
+                        <li>创可贴、纱布、医用胶带</li>
+                        <li>消毒酒精、碘伏棉球</li>
+                        <li>抗过敏药、止痛药</li>
+                        <li>防晒霜、烧烫伤膏</li>
+                    </ul>
+                `
+            },
+            'article-9': {
+                title: '秋天是露营的最佳季节：赏枫叶观星河',
+                tag: '季节攻略',
+                date: '2024.09.15',
+                views: '4.8k',
+                image: 'https://images.unsplash.com/photo-1517824806704-9040b037703b?w=1200&q=80',
+                content: `
+                    <p>秋高气爽的秋季是公认最适合露营的季节，天气温和、景色绝美、蚊虫减少，一起来看看秋季露营的魅力。</p>
+                    
+                    <h3>为什么秋天最适合露营</h3>
+                    <ul>
+                        <li><strong>温度适宜</strong>：白天15-25°C，晚上10-15°C，不需要太厚的睡袋</li>
+                        <li><strong>天气稳定</strong>：秋高气爽，降雨较少，空气透明度高</li>
+                        <li><strong>景色绝美</strong>：枫叶变红、银杏金黄，是一年中最美的季节</li>
+                        <li><strong>星空璀璨</strong>：秋季空气干燥，是观星的最佳时节</li>
+                    </ul>
+                    
+                    <h3>秋季赏枫推荐目的地</h3>
+                    <ul>
+                        <li><strong>四川米亚罗</strong>：中国最大红叶观赏区</li>
+                        <li><strong>吉林长白山</strong>：红叶与天池相映</li>
+                        <li><strong>北京香山</strong>：经典红叶观赏地</li>
+                        <li><strong>安徽黄山</strong>：奇松怪石配秋叶</li>
+                    </ul>
+                    
+                    <h3>装备调整</h3>
+                    <p>秋季露营建议携带：</p>
+                    <ul>
+                        <li>温标5-10°C的睡袋</li>
+                        <li>抓绒内胆或轻薄羽绒服</li>
+                        <li>防水外套（山区天气多变）</li>
+                        <li>保暖帽子和手套</li>
+                    </ul>
+                `
+            },
+            'article-10': {
+                title: '便携炉具横评：气炉、油炉、酒精炉哪个好？',
+                tag: '装备评测',
+                date: '2024.01.10',
+                views: '2.9k',
+                image: 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=1200&q=80',
+                content: `
+                    <p>露营做饭离不开炉子，气炉方便但怕低温，油炉火力强但维护复杂，酒精炉轻便但效率低...这篇文章帮你选择最适合的炉具。</p>
+                    
+                    <h3>气炉（Gas Stove）</h3>
+                    <p><strong>优点：</strong></p>
+                    <ul>
+                        <li>点火方便，一按即燃</li>
+                        <li>火力调节简单</li>
+                        <li>清洁，燃料易获取</li>
+                    </ul>
+                    <p><strong>缺点：</strong></p>
+                    <ul>
+                        <li>低温环境下火力下降明显</li>
+                        <li>高海拔效率降低</li>
+                        <li>气罐不可降解</li>
+                    </ul>
+                    <p><strong>推荐品牌：</strong>MSR PocketRocket、Snow Peak Giamo</p>
+                    
+                    <h3>油炉（Liquid Fuel Stove）</h3>
+                    <p><strong>优点：</strong></p>
+                    <ul>
+                        <li>适应各种温度和海拔</li>
+                        <li>燃料便宜、可获取性强</li>
+                        <li>火力强劲，适合重烹饪</li>
+                    </ul>
+                    <p><strong>缺点：</strong></p>
+                    <ul>
+                        <li>需要预热，操作复杂</li>
+                        <li>有噪音和气味</li>
+                        <li>维护要求高</li>
+                    </ul>
+                    <p><strong>推荐品牌：</strong>MSR WhisperLite、Optimus Nova</p>
+                    
+                    <h3>酒精炉（Alcohol Stove）</h3>
+                    <p><strong>优点：</strong></p>
+                    <ul>
+                        <li>极轻、极简</li>
+                        <li>燃料易获取（医用酒精即可）</li>
+                        <li>无声、无味</li>
+                    </ul>
+                    <p><strong>缺点：</strong></p>
+                    <ul>
+                        <li>火力小，烹饪时间长</li>
+                        <li>不适合大量烹饪</li>
+                    </ul>
+                    <p><strong>适合场景：</strong>轻量化徒步、紧急备用</p>
+                `
+            },
+            'article-11': {
+                title: '江浙沪周边8个宝藏露营地，周末说走就走',
+                tag: '目的地',
+                date: '2024.01.05',
+                views: '7.2k',
+                image: 'https://images.unsplash.com/photo-1537905569824-f89f14cceb68?w=1200&q=80',
+                content: `
+                    <p>不想长假出行？这8个江浙沪周边的宝藏露营地，开车2-4小时即达，周末就能享受野趣。</p>
+                    
+                    <h3>浙江篇</h3>
+                    <p><strong>1. 莫干山星空帐篷营地</strong></p>
+                    <p>位于德清县，海拔800米，视野开阔，夜晚星空璀璨。有帐篷和木屋可选，设施完善。</p>
+                    
+                    <p><strong>2. 千岛湖姜家营地</strong></p>
+                    <p>湖畔草地，湖水清澈，可以划船、钓鱼。营地提供水电，适合家庭出行。</p>
+                    
+                    <p><strong>3. 宁波商量岗营地</strong></p>
+                    <p>在四明山深处，森林环绕，溪流潺潺。秋季红叶特别美。</p>
+                    
+                    <h3>江苏篇</h3>
+                    <p><strong>4. 苏州太湖牛仔风情度假村</strong></p>
+                    <p>靠近太湖，有马场、皮划艇等娱乐设施，适合亲子露营。</p>
+                    
+                    <p><strong>5. 无锡灵山元一希尔顿逸林营地</strong></p>
+                    <p>精致的Glamping体验，有独立帐篷和完善服务，适合不想将就的露营爱好者。</p>
+                    
+                    <h3>上海周边</h3>
+                    <p><strong>6. 崇明岛东滩湿地公园</strong></p>
+                    <p>离市区最近的选择，可以看到湿地鸟类和日出。</p>
+                    
+                    <p><strong>7. 嘉兴海宁观潮公园</strong></p>
+                    <p>在钱塘江边，可以观潮，夜晚星空也不错。</p>
+                    
+                    <p><strong>8. 临安浙西大峡谷</strong></p>
+                    <p>峡谷风光，溪流清澈，适合喜欢山野的露营者。</p>
+                `
+            },
+            'article-12': {
+                title: '冬季露营入门：保暖技巧与装备清单',
+                tag: '季节攻略',
+                date: '2023.12.20',
+                views: '3.4k',
+                image: 'https://images.unsplash.com/photo-1486915309615-73ca5dfc3fc4?w=1200&q=80',
+                content: `
+                    <p>冬天的星空更璀璨，雪地露营别有风情，但这也是最具挑战的季节。这篇冬季露营入门指南帮你安全享受冬野之美。</p>
+                    
+                    <h3>为什么冬季值得露营</h3>
+                    <ul>
+                        <li><strong>人少景美</strong>：冬季是淡季，营地空旷，可以独享美景</li>
+                        <li><strong>星空更美</strong>：空气干燥透明度高，银河格外清晰</li>
+                        <li><strong>雪景难得</strong>：银装素裹的营地，是夏秋看不到的风景</li>
+                        <li><strong>篝火更暖</strong>：寒冷的夜晚，篝火格外温暖</li>
+                    </ul>
+                    
+                    <h3>冬季露营装备清单</h3>
+                    <p><strong>保暖核心：</strong></p>
+                    <ul>
+                        <li>温标-10°C以下的睡袋</li>
+                        <li>充气垫 + 蛋槽垫（双层隔热）</li>
+                        <li>抓绒毯或热水袋</li>
+                    </ul>
+                    
+                    <p><strong>防护装备：</strong></p>
+                    <ul>
+                        <li>防水透气的三层冲锋衣</li>
+                        <li>保暖帽子和手套</li>
+                        <li>保暖内衣和羊毛袜</li>
+                        <li>防风防水徒步鞋</li>
+                    </ul>
+                    
+                    <h3>保暖技巧</h3>
+                    <ul>
+                        <li><strong>睡前活动</strong>：睡前做些轻微运动让身体发热</li>
+                        <li><strong>多穿衣服睡</strong>：穿着干净的内层衣物睡觉更暖和</li>
+                        <li><strong>热水瓶</strong>：睡前灌一瓶热水放睡袋里</li>
+                        <li><strong>帐篷位置</strong>：选择避风处扎营</li>
+                    </ul>
+                    
+                    <h3>安全提醒</h3>
+                    <p>冬季露营风险较高，新手建议先从有暖气的固定帐篷营地开始体验。</p>
+                `
+            }
+        };
+
+        // Open article modal
+        function openArticle(id) {
+            const article = articles[id];
+            if (!article) return;
+            
+            document.getElementById('articleModalImg').src = article.image;
+            document.getElementById('articleModalTag').textContent = article.tag;
+            document.getElementById('articleModalTitle').textContent = article.title;
+            document.getElementById('articleModalMeta').textContent = article.date + ' · 阅读 ' + article.views;
+            document.getElementById('articleModalContent').innerHTML = article.content;
+            
+            document.getElementById('articleModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeArticle() {
+            document.getElementById('articleModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeArticle();
+                closeLightbox();
+            }
+        });
+
+        // Close modal on click outside
+        document.getElementById('articleModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeArticle();
+            }
+        });
 
         // Lightbox
         function openLightbox(element) {
