@@ -1,6 +1,4 @@
-# -
-旷野营记 - 精致露营网站
-[index.html](https://github.com/user-attachments/files/26529602/index.html)
+[index.html](https://github.com/user-attachments/files/26529713/index.html)
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
